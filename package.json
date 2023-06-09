@@ -1,0 +1,40 @@
+{
+    "name": "@thespiderinc/openbook-swap",
+    "private": false,
+    "version": "0.0.1",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "build": "tsc --project tsconfig.build.json",
+        "test": "jest --coverage"
+    },
+    "peerDependencies": {
+        "@project-serum/serum": "^0.13.65",
+        "@solana/spl-token": "0.3.7",
+        "@solana/web3.js": "^1.75.0",
+        "axios": "0.27.2",
+        "bn.js": "5.2.1",
+        "lodash.debounce": "^4.0.8",
+        "react": "^18.2.0",
+        "react-tooltip": "^5.11.1",
+        "react-currency-input-field": "^3.6.10"
+    },
+    "devDependencies": {
+        "@project-serum/serum": "^0.13.65",
+        "@solana/spl-token": "0.3.7",
+        "@solana/wallet-adapter-react": "^0.15.32",
+        "@solana/web3.js": "^1.75.0",
+        "@types/bn.js": "^5.1.1",
+        "@types/jest": "^29.5.1",
+        "@types/lodash.debounce": "^4.0.7",
+        "@types/react": "^18.2.2",
+        "@types/react-dom": "^18.2.3",
+        "axios": "0.27.2",
+        "bn.js": "5.2.1",
+        "lodash.debounce": "^4.0.8",
+        "react": "^18.2.0",
+        "react-currency-input-field": "^3.6.10",
+        "ts-jest": "^29.1.0",
+        "typescript": "5.0.4"
+    }
+}

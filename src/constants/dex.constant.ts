@@ -1,0 +1,1 @@
+export const DEX_ADDRESS: string = 'srmqPvymJeFKQ4zGQed1GFppgkRHL9kaELCbyksJtPX';

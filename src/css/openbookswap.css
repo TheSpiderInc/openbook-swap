@@ -1,0 +1,875 @@
+.openbookswap h1,
+.openbookswap h2,
+.openbookswap h3,
+.openbookswap h4,
+.openbookswap h5,
+.openbookswap p,
+.openbookswap span,
+.openbookswap input,
+.openbookswap img,
+.openbookswap g,
+.openbookswap a,
+.openbookswap select,
+.openbookswap button {
+  transition: ease all 0.2s !important;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent !important;
+  text-decoration: none;
+  font-family: monospace;;
+}
+
+.openbookswap .cursor-pointer {
+  cursor: pointer;
+}
+
+.openbookswap button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none !important;
+}
+
+.openbookswap button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+
+.openbookswap .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 45%;
+    height: 100%;
+}
+
+.openbookswap .input-wrapper input {
+    max-width: 100% !important;
+}
+
+.openbookswap h1 {
+    color: var(--text-color);
+    font-size: 40px;
+    letter-spacing: -2px;
+}
+
+.openbookswap h2 {
+    color: var(--text-color);
+    font-size: 28px;
+    letter-spacing: -2px;
+}
+
+.openbookswap h3 {
+    color: var(--text-color);
+    font-size: 26px;
+    font-weight: 200;
+}
+
+.openbookswap h4 {
+    color: var(--text-color);
+    font-size: 18px;
+    line-height: 10px;
+}
+
+.openbookswap h5 {
+    color: var(--text-color);
+    font-size: 13px;
+    line-height: 10px;
+}
+
+
+.openbookswap .link-simple {
+    color: var(--primary-color);
+    font-size: inherit;
+    padding: 0;
+}
+
+.openbookswap .link-simple.disabled {
+    cursor: text;
+}
+
+div.swap-container.openbookswap {
+    max-width: 48em;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 550px;
+}
+
+.openbookswap div.swap-container-box {
+    position: relative;
+    height: fit-content;
+    padding: 0 0.5em 0.5em 0.5em;
+    border-radius: 10px;
+    background-color: var(--background-color);    
+}
+
+.openbookswap div.swap-container-content {
+    padding: 1em; 
+    width: -webkit-fill-available;
+}
+
+.openbookswap div.swap-container div.message-container button.close-button {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.openbookswap div.swap-container-box.swap-title {
+    width: 100%;
+    text-align: Center;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair {
+    border-top: 4px solid var(--secondary-color);
+    width: 100%;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input {
+    outline: none;
+    color: var(--text-color);
+    font-size: 25px;
+    font-weight: 200;
+    text-align: right;
+    padding: 10px 10px 10px 0;
+    border-radius: 10px;
+    max-width: 50%;
+    border: 2px solid transparent;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input.move-top {
+    padding: 5px 10px 22px 10px;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input:not([disabled]) {
+    /* background-color: var(--text-color); */
+    background-color: transparent;
+    border-color: var(--secondary-color);
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input[disabled] {
+    background-color: transparent;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input:not([disabled]):active,
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input:not([disabled]):focus,
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input:not([disabled]):hover,
+.openbookswap div.balance-buttons:hover ~ input:not([disabled])
+{
+    border-color: var(--primary-color) !important;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input:not([disabled]):active,
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair input:not([disabled]):focus {
+    /* background-color: var(--color-purple-darker); */
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div:not(.swap-switch) img {
+    max-width: 30px;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div.swap-switch svg {
+    width: 30px;
+    height: 25px;
+    user-select: none;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div.swap-switch button:not([disabled]) svg g#swap {
+    fill: white;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div.swap-switch button[disabled] {
+    display: none;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div.swap-switch button:not([disabled]):hover {
+    /* background-color: var(--text-color); */
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div.swap-switch button:not([disabled]):hover svg g#swap {
+    /* transform: scale(1.07); */
+    fill: var(--primary-color);
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div.swap-switch {
+    height: 4px;
+    background-color: var(--secondary-color);
+    position: relative;
+}
+
+.openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div.swap-switch > button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background-color);
+    border: 4px solid var(--secondary-color);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.openbookswap div.swap-container-box button.wallet-adapter-button.wallet-adapter-button-trigger {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8em;
+    font-size: 20px;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.openbookswap div.swap-container-box button.wallet-adapter-button.wallet-adapter-button-trigger:hover {
+    background-color: var(--primary-color) !important;
+    opacity: 0.8;
+}
+
+.openbookswap .price-analysis-container {
+    width: 100%;
+    font-size: 13px;
+}
+
+.openbookswap .price-analysis-container .price-accuracy {
+    font-size: 13px;
+}
+
+.openbookswap .price-analysis-container .small-text-detail {
+    font-size: 12px;
+    color: #adadad;
+}
+
+.openbookswap .price-analysis-container .great-price {
+    color: #5fc75f;
+}
+
+.openbookswap .price-analysis-container .good-price {
+    color: #a4daa4;
+}
+
+.openbookswap .price-analysis-container .bad-price {
+    color: #fb4848;
+}
+
+.openbookswap .price-analysis-container .fair-price {
+    color: #f7b500;
+}
+
+.openbookswap .price-analysis-container .price-indicator-label {
+    color: var(--text-color);
+}
+
+.openbookswap .price-analysis-container .price-indicator {
+    height: 10px;
+    width: 10px;
+    display: block;
+    border-radius: 10px;
+}
+
+.openbookswap .price-analysis-container .price-indicator.green {
+    background: #5fc75f;
+}
+
+.openbookswap .price-analysis-container .price-indicator.light-green {
+    background: #a4daa4;
+}
+
+.openbookswap .price-analysis-container .price-indicator.red {
+    background: #fb4848;
+}
+
+.openbookswap .price-analysis-container .price-indicator.yellow {
+    background: #f7b500;
+}
+
+.openbookswap .balance-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 7px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.openbookswap .balance-buttons > button {
+    border-style: none;
+    cursor: pointer;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    opacity: 1;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 2px 8px;
+}
+
+.openbookswap .balance-buttons > button:hover {
+    opacity: 0.6;
+}
+
+.openbookswap .token-dollars-value {
+    position: absolute;
+    font-size: 13px;
+    color: var(--primary-color);
+    right: 13px;
+    bottom: 7px;
+}
+
+.openbookswap .alert-container {
+    position: fixed;
+    top: 0;
+    background: #e12731;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+    border-radius: 0 0 10px 10px;
+    padding-bottom: 4px;
+    padding-top: 2px;
+}
+
+.openbookswap .small-sign-position {
+    position: absolute;
+    top: 10px;
+    right: 70px;
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+.openbookswap div.swap-container-box .fees-container {
+    position: absolute;
+    bottom: -20px;
+    right: 0px;
+}
+
+.openbookswap div.swap-container-box .fees-container > button {
+    font-size: 14px;
+    line-height: 10px;
+    color: var(--color-purple-lighter2);
+}
+
+.openbookswap div.swap-container-box .fees-container > button:hover {
+    color: var(--color-purple-lighter);
+}
+
+.openbookswap div.token-logo-name {
+    margin-left: 1em;
+}
+
+.openbookswap button.search-pair-button {
+    padding: 7px 1em;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+}
+
+.openbookswap button.search-pair-button:hover {
+    border-color: var(--primary-color);
+}
+
+.openbookswap.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+}
+  
+.openbookswap .obs-modal {
+    position: relative;
+    background-color: var(--background-color);
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    min-width: 20vw;
+    max-width: 20vw;
+    min-height: 50vh;
+    text-align: center;
+}
+  
+.openbookswap .obs-modal .modal-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 99;
+    color: var(--text-color);
+}
+
+.openbookswap .obs-modal .modal-close:hover {
+    opacity: 0.8;
+}
+
+.openbookswap .obs-modal .modal-content {
+    margin-top: 20px;
+}
+
+.openbookswap .obs-modal .search-tokens {
+    position: relative;
+    padding: 0 20px;
+    margin-top: 10px;
+}
+
+.openbookswap .obs-modal .search-tokens input {
+    line-height: 20px;
+    border: none !important;
+    border-bottom: 2px solid var(--secondary-color) !important;
+    border-radius: 0 !important;
+    width: -webkit-fill-available;
+    position: relative;
+    text-align: left !important;
+    max-width: none !important;
+}
+
+.openbookswap .obs-modal .token-options .token-option {
+    gap: 10px;
+    cursor: pointer;
+    background: var(--background-color);
+    padding: 10px 1em;
+    transition: ease all 0.3s;
+}
+
+.openbookswap .obs-modal .token-options .token-option:hover {
+    background-color: var(--secondary-color);
+}
+
+.openbookswap .flex {
+	display: flex;
+}
+
+.openbookswap .flex.row {
+	flex-direction: row;
+}
+
+.openbookswap .flex.column {
+	flex-direction: column;
+}
+
+.openbookswap .flex.between {
+	justify-content: space-between;
+}
+
+.openbookswap .flex.start {
+	justify-content: start;
+}
+
+.openbookswap .flex.center {
+	justify-content: center;
+}
+
+.openbookswap .flex.end {
+	justify-content: end;
+}
+
+.openbookswap .flex.items-start {
+	align-items: start;
+}
+
+.openbookswap .flex.items-center {
+	align-items: center;
+}
+
+.openbookswap .flex.items-inherit {
+	align-items: inherit;
+}
+
+.openbookswap .flex.wrap {
+	flex-wrap: wrap;
+}
+
+.openbookswap .flex.gap-smaller {
+    gap: 5px;
+}
+
+.openbookswap .flex.gap-small {
+    gap: 10px;
+}
+
+.openbookswap .flex.gap {
+	gap: 20px;
+}
+
+.openbookswap .flex.gap-big {
+	gap: 70px;
+}
+
+.openbookswap .w-100 { 
+	width: 100% !important;
+}
+
+.openbookswap .w-70 { 
+	width: 70% !important;
+}
+
+.openbookswap .w-50 { 
+	width: 50% !important;
+}
+
+.openbookswap .w-30 { 
+	width: 30% !important;
+}
+
+
+.openbookswap .m-0 { 
+	margin:0!important;
+}
+
+.openbookswap .m-1 { 
+	margin:.25rem!important;
+}
+
+.openbookswap .m-2 { 
+	margin:.5rem!important;
+}
+
+.openbookswap .m-3 { 
+	margin:1rem!important;
+}
+
+.openbookswap .m-4 { 
+	margin:1.5rem!important;
+}
+
+.openbookswap .m-5 { 
+	margin:3rem!important;
+}
+
+.openbookswap .mt-0 { 
+	margin-top:0!important;
+}
+
+.openbookswap .mr-0 { 
+	margin-right:0!important;
+}
+
+.openbookswap .mb-0 { 
+	margin-bottom:0!important;
+}
+
+.openbookswap .ml-0 { 
+	margin-left:0!important;
+}
+
+.openbookswap .mx-0 { 
+	margin-left:0 !important;
+	margin-right:0 !important;
+}
+
+.openbookswap .my-0 { 
+	margin-top:0!important;
+	margin-bottom:0!important;
+}
+
+.openbookswap .mt-1 { 
+	margin-top:.25rem!important;
+}
+
+.openbookswap .mr-1 { 
+	margin-right:.25rem!important;
+}
+
+.openbookswap .mb-1 { 
+	margin-bottom:.25rem!important;
+}
+
+.openbookswap .ml-1 { 
+	margin-left:.25rem!important;
+}
+
+.openbookswap .mx-1 { 
+	margin-left:.25rem!important;
+	margin-right:.25rem!important;
+}
+
+.openbookswap .my-1 { 
+	margin-top:.25rem!important;
+	margin-bottom:.25rem!important;
+}
+
+.openbookswap .mt-2 { 
+	margin-top:.5rem!important;
+}
+
+.openbookswap .mr-2 { 
+	margin-right:.5rem!important;
+}
+
+.openbookswap .mb-2 { 
+	margin-bottom:.5rem!important;
+}
+
+.openbookswap .ml-2 { 
+	margin-left:.5rem!important;
+}
+
+.openbookswap .mx-2 { 
+	margin-right:.5rem!important;
+	margin-left:.5rem!important;
+}
+
+.openbookswap .my-2 { 
+	margin-top:.5rem!important;
+	margin-bottom:.5rem!important;
+}
+
+.openbookswap .mt-3 { margin-top:1rem!important; }
+.openbookswap .mr-3 { margin-right:1rem!important; }
+.openbookswap .mb-3 { margin-bottom:1rem!important; }
+.openbookswap .ml-3 { margin-left:1rem!important; }
+.openbookswap .mx-3 { margin-right:1rem!important;margin-left:1rem!important; }
+.openbookswap .my-3 { margin-bottom:1rem!important;margin-top:1rem!important; }
+
+.openbookswap .mt-4 { margin-top:1.5rem!important; }
+.openbookswap .mr-4 { margin-right:1.5rem!important; }
+.openbookswap .mb-4 { margin-bottom:1.5rem!important; }
+.openbookswap .ml-4 { margin-left:1.5rem!important; }
+.openbookswap .mx-4 { margin-right:1.5rem!important;margin-left:1.5rem!important; }
+.openbookswap .my-4 { margin-top:1.5rem!important;margin-bottom:1.5rem!important; }
+
+.openbookswap .mt-5 { margin-top:3rem!important; }
+.openbookswap .mr-5 { margin-right:3rem!important; }
+.openbookswap .mb-5 { margin-bottom:3rem!important; }
+.openbookswap .ml-5 { margin-left:3rem!important; }
+.openbookswap .mx-5 { margin-right:3rem!important;margin-left:3rem!important; }
+.openbookswap .my-5 { margin-top:3rem!important;margin-bottom:3rem!important; }
+
+.openbookswap .mt-auto { margin-top:auto!important; }
+.openbookswap .mr-auto { margin-right:auto!important; }
+.openbookswap .mb-auto { margin-bottom:auto!important; }
+.openbookswap .ml-auto { margin-left:auto!important; }
+.openbookswap .mx-auto { margin-right:auto!important;margin-left:auto!important; }
+.openbookswap .my-auto { margin-bottom:auto!important;margin-top:auto!important; }
+
+.openbookswap .p-0 { padding:0!important; }
+.openbookswap .p-1 { padding:.25rem!important; }
+.openbookswap .p-2 { padding:.5rem!important; }
+.openbookswap .p-3 { padding:1rem!important; }
+.openbookswap .p-4 { padding:1.5rem!important; }
+.openbookswap .p-5 { padding:3rem!important; }
+
+.openbookswap .pt-0 { padding-top:0!important; }
+.openbookswap .pr-0 { padding-right:0!important; }
+.openbookswap .pb-0 { padding-bottom:0!important; }
+.openbookswap .pl-0 { padding-left:0!important; }
+.openbookswap .px-0 { padding-left:0!important;padding-right:0!important; }
+.openbookswap .py-0 { padding-top:0!important;padding-bottom:0!important; }
+
+.openbookswap .pt-1 { padding-top:.25rem!important; }
+.openbookswap .pr-1 { padding-right:.25rem!important; }
+.openbookswap .pb-1 { padding-bottom:.25rem!important; }
+.openbookswap .pl-1 { padding-left:.25rem!important; }
+.openbookswap .px-1 { padding-left:.25rem!important;padding-right:.25rem!important; }
+.openbookswap .py-1 { padding-top:.25rem!important;padding-bottom:.25rem!important; }
+
+.openbookswap .pt-2 { padding-top: 0.5rem!important; }
+.openbookswap .pr-2 { padding-right: 0.5rem!important; }
+.openbookswap .pb-2 { padding-bottom: 0.5rem!important; }
+.openbookswap .pl-2 { padding-left: 0.5rem!important; }
+.openbookswap .px-2 { padding-right: 0.5rem!important; padding-left: 0.5rem!important; }
+.openbookswap .py-2 { padding-top: 0.5rem!important; padding-bottom: 0.5rem!important; }
+
+.openbookswap .pt-3 { padding-top: 1rem!important; }
+.openbookswap .pr-3 { padding-right: 1rem!important; }
+.openbookswap .pb-3 { padding-bottom: 1rem!important; }
+.openbookswap .pl-3 { padding-left: 1rem!important; }
+.openbookswap .py-3 { padding-bottom: 1rem!important; padding-top: 1rem!important; }
+.openbookswap .px-3 { padding-right: 1rem!important; padding-left: 1rem!important; }
+
+.openbookswap .pt-4 { padding-top: 1.5rem!important; }
+.openbookswap .pr-4 { padding-right: 1.5rem!important; }
+.openbookswap .pb-4 { padding-bottom: 1.5rem!important; }
+.openbookswap .pl-4 { padding-left: 1.5rem!important; }
+.openbookswap .px-4 { padding-right: 1.5rem!important; padding-left: 1.5rem!important; }
+.openbookswap .py-4 { padding-top: 1.5rem!important; padding-bottom: 1.5rem!important; }
+
+.openbookswap .pt-5 { padding-top: 3rem!important; }
+.openbookswap .pr-5 { padding-right: 3rem!important; }
+.openbookswap .pb-5 { padding-bottom: 3rem!important; }
+.openbookswap .pl-5 { padding-left: 3rem!important; }
+.openbookswap .px-5 { padding-right: 3rem!important; padding-left: 3rem!important; }
+.openbookswap .py-5 { padding-top: 3rem!important; padding-bottom: 3rem!important; }
+
+.openbookswap .no-display {
+    display: none!important;
+}
+
+@media only screen and (max-width: 700px) {
+    .openbookswap h1 {
+        font-size: 28px !important;
+    }
+
+    .openbookswap h3 {
+        font-size: 18px !important;
+    }
+
+    .openbookswap h4 {
+        font-size: 15px !important;
+    }
+
+
+    .openbookswap div.swap-container {
+        min-width: auto !important;
+        width: 100% !important;
+    }
+
+    .openbookswap div.swap-container-box{
+        width: auto;
+        max-width: 100%;
+    }
+
+    .openbookswap div.swap-container-box > div.swap-container-content {
+        padding: 0;
+    }
+
+    .openbookswap div.swap-container.mt-3 {
+        width: 100%;
+    }
+
+    .openbookswap div.swap-container-boxbutton.wallet-adapter-button.wallet-adapter-button-trigger {
+        width: calc(100% - 1em);
+        margin: 0.5em;
+    }
+
+    .openbookswap div.swap-container-box> div.swap-container-content > div.swap-container-content-pair input {
+        max-width: 100% !important;
+        font-size: 20px;
+        padding: 15px 10px 15px 0;
+    }
+
+    .openbookswap div.swap-container-box> div.swap-container-content > div.swap-container-content-pair input[font-family="monospace"] {
+        letter-spacing: -2px;
+    }
+
+    .openbookswap div.swap-container-box> div.swap-container-content > div.swap-container-content-pair div.swap-switch svg {
+        width: 35px;
+        height: 25px;
+    }
+
+    .openbookswap .select-input span {
+        font-size: 18px;
+    }
+
+    .openbookswap .balance-buttons > button {
+        font-size: 15px;
+        padding: 3px 5px;
+    }
+
+    .openbookswap .input-style {
+        margin-top: 10px;
+        font-size: 20px;
+    }
+
+    .openbookswap .balance-buttons {
+        gap: 5px;
+        /* left: -10px; */
+    }
+
+    .openbookswap div.modal-container {
+        min-width: 250px !important;
+    }
+
+    .openbookswap div.modal-container .accounts-list {
+        width: 100%;
+        font-size: 13px !important;
+        margin: 0;
+    }
+
+    .openbookswap .fee-amount {
+        font-size: 13px;
+    }
+    
+    .openbookswap .fee-title {
+        font-size: 16px;
+    }
+
+    .openbookswap .fee-line {
+        font-size: 11px;
+        
+    }
+
+    .openbookswap div.welcome-container {
+        max-width: 80vw;
+    }
+
+    .openbookswap .alert-container span {
+        font-size: 11px;
+    }
+
+    .openbookswap .verify span {
+        font-size: 14px;
+        text-align: center;
+        line-height: 15px;
+    }
+
+    .openbookswap div.swap-container-box> div.swap-container-content > div.swap-container-content-pair input.move-top {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .openbookswap .small-sign-position {
+        top: -10px;
+        right: 50px;
+        font-size: 19px !important;
+    }
+
+    .openbookswap .input-wrapper {
+        max-width: 50% !important;
+    }
+
+    .openbookswap div.swap-container-box button.wallet-adapter-button.wallet-adapter-button-trigger {
+        font-size: 20px;
+    }
+
+    .openbookswap .message-container p {
+        font-size: 12px !important;
+        line-height: 16px !important;
+    }
+
+    .openbookswap div.modal-container .accounts-list .close-account-list {
+        font-size: 13px;
+    }
+
+    .openbookswap div.modal-container .accounts-list .close-account-list > div {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .openbookswap div.modal-container .close-account {
+        font-size: 15px !important;
+        padding: 3px 35px 2px 15px !important;
+    }
+
+    .openbookswap button.search-pair-button {
+        padding: 5px 0.5em !important;
+    }
+
+    .openbookswap button.search-pair-button h3.ml-2 {
+        margin-left: 0.2em !important;
+    }
+
+    .openbookswap div.token-logo-name {
+        margin-left: 0.5em;
+    }
+
+    .openbookswap .flex.responsive-column {
+        justify-content: space-between !important;
+    }
+
+    .openbookswap .obs-modal {
+        max-width: none;
+    }
+
+    .openbookswap div.swap-container-box > div.swap-container-content > div.swap-container-content-pair div:not(.swap-switch) img {
+        max-width: 35px;
+    }
+
+    div.swap-container.openbookswap {
+        min-width: -webkit-fill-available;
+    }
+}
