@@ -1,7 +1,7 @@
 {
-  "name": "@thespiderinc/openbook-swap",
+  "name": "@thespidercode/openbook-swap",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.15",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -12,12 +12,12 @@
     "@project-serum/serum": "^0.13.65",
     "@solana/spl-token": "0.3.7",
     "@solana/web3.js": "^1.75.0",
-    "axios": "0.27.2",
+    "axios": "1.4.0",
     "bn.js": "5.2.1",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
-    "react-tooltip": "^5.11.1",
-    "react-currency-input-field": "^3.6.10"
+    "react-currency-input-field": "^3.6.10",
+    "react-tooltip": "^5.11.1"
   },
   "devDependencies": {
     "@project-serum/serum": "^0.13.65",
@@ -29,7 +29,7 @@
     "@types/lodash.debounce": "^4.0.7",
     "@types/react": "^18.2.2",
     "@types/react-dom": "^18.2.3",
-    "axios": "0.27.2",
+    "axios": "1.4.0",
     "bn.js": "5.2.1",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
@@ -56,5 +56,8 @@
   "bugs": {
     "url": "https://github.com/TheSpiderInc/openbook-swap/issues"
   },
-  "homepage": "https://github.com/TheSpiderInc/openbook-swap#readme"
+  "homepage": "https://github.com/TheSpiderInc/openbook-swap#readme",
+  "dependencies": {
+    "@types/axios": "^0.14.0"
+  }
 }

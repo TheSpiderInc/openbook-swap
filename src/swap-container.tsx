@@ -10,8 +10,8 @@ import { WalletContextState } from "@solana/wallet-adapter-react";
 import { geTokenPrices } from "./token";
 import { TokenInput } from "./token-input";
 import { TokenQuote } from "./token-quote";
-import swapImage from '@oskyment/openbook-swap/src/images/icons/icon-swap.svg';
-import '@oskyment/openbook-swap/src/css/openbookswap.css';
+import swapImage from '@thespidercode/openbook-swap/src/images/icons/icon-swap.svg';
+import '@thespidercode/openbook-swap/src/css/openbookswap.css';
 
 export function SwapContainer(props: SwapContainerProps) {
     const { title, markets, connection, wallet, onSwapLoading, onSwapError, onSwapSuccess, onSwap, colors, apiKey, manualTransaction } = props;
@@ -78,12 +78,12 @@ export function SwapContainer(props: SwapContainerProps) {
         setLoadingSwap(true);
 
         try {
-            if (!wallet.publicKey || !marketOrders) {
+            if (((!wallet || !wallet.publicKey) && !manualTransaction) || !marketOrders) {
                 onSwapError({message: "Cannot get wallet and/or market information"} as SwapError);
                 return;
             }
 
-            const swapResult = await newSwap(wallet.publicKey, swap, marketOrders.lowestAsk, marketOrders.highestBid, connection, apiKey);
+            const swapResult = await newSwap((wallet && wallet?.publicKey ? wallet.publicKey : manualTransaction as PublicKey), swap, marketOrders.lowestAsk, marketOrders.highestBid, connection, apiKey);
 
             if (swapResult.error || !swapResult.transaction) {
                 onSwapError({
@@ -100,6 +100,14 @@ export function SwapContainer(props: SwapContainerProps) {
                     setLoadingSwap,
                     refreshUserBalances
                 });
+                return;
+            }
+
+            if (!wallet || !wallet.publicKey) {
+                onSwapError({
+                    message: "Cannot get wallet",
+                } as SwapError);
+                setLoadingSwap(false);
                 return;
             }
 
@@ -243,7 +251,7 @@ export function SwapContainer(props: SwapContainerProps) {
         } else {
             setUserTokens(undefined);
         }
-    }, [wallet.publicKey, swap.market.address]);
+    }, [wallet?.publicKey, swap.market.address]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -358,7 +366,7 @@ export function SwapContainer(props: SwapContainerProps) {
 
                 <div className="mt-3 w-100">
                     {
-                        wallet.connected ? 
+                        wallet?.connected && !manualTransaction ? 
                             <button disabled={loadingSwap || swap.slotConsumed > 1 ||
                                     (swap.sell && (userTokens?.amountBaseToken ?? 0) < (parseFloat(swap.inputAmounts.base) ?? 0)) || 
                                     (!swap.sell && (userTokens?.amountQuoteToken ?? 0) < (parseFloat(swap.inputAmounts.quote) ?? 0)) || 
@@ -381,7 +389,8 @@ export function SwapContainer(props: SwapContainerProps) {
                                             }
                                         </div>
                             </button> 
-                        : 'CONNECT WALLET'
+                        : 
+                            <button disabled className="wallet-adapter-button wallet-adapter-button-trigger">Connect Wallet</button>
                     }
                 </div>
             </div>
@@ -393,13 +402,13 @@ export function SwapContainer(props: SwapContainerProps) {
 export interface SwapContainerProps {
     title: string;
     connection: Connection;
-    wallet: WalletContextState;
     onSwapSuccess: (success: SwapSuccess) => void;
     onSwapError: (error: SwapError) => void;
     onSwapLoading: (loading: SwapLoading) => void;
     colors: SwapContainerColors;
     markets: SwapMarket[];
     apiKey: string;
+    wallet?: WalletContextState;
     manualTransaction?: PublicKey;
     onSwap?: (swap: ManualSwap) => void;
 }

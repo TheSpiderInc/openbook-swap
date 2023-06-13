@@ -1,15 +1,17 @@
 import { PublicKey } from "@solana/web3.js";
-import axios from "axios";
 import { API_BASE_URL } from "./constants/api.constant";
 
 export const geTokenPrices= async (tokens: string[]): Promise<{ data: {tokenPrices: {[key: string]: number}}} | null> => {
     try {
-      return axios({
-        url: `${API_BASE_URL}markets/get-token-prices`,
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        data: {tokens: tokens}
-      });
+      return {
+        data: await (await 
+          fetch(`${API_BASE_URL}markets/get-token-prices`, 
+          { 
+            method: 'POST', 
+            headers: {"Content-Type": "application/json"}, 
+            body: JSON.stringify({tokens: tokens}) 
+          })).json()
+      };
     } catch (error) {
       console.log(error)
       return null;

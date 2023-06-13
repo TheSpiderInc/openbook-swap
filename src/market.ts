@@ -2,7 +2,6 @@ import { Connection, PublicKey } from "@solana/web3.js";
 import { TokenDetails } from "./token";
 import { Market, Orderbook } from "@project-serum/serum";
 import { DEX_ADDRESS } from "./constants/dex.constant";
-import axios from "axios";
 import { API_BASE_URL } from "./constants/api.constant";
 import { Swap } from "./swap";
 
@@ -45,14 +44,12 @@ export const getMarketInfo = async (marketAddress: PublicKey, connection: Connec
     }
 }
 
-const getMarket = async (marketAddress: string): Promise<{data: {market: MarketOrders, tokenPrices: {[key: string]: number}}} | null> => {
+export const getMarket = async (marketAddress: string): Promise<{data: {market: MarketOrders, tokenPrices: {[key: string]: number}}} | null> => {
     try {
-        // return axios.get(`${API_BASE_URL}markets/info?address=${marketAddress}`, { headers: {"Content-Type": "application/json"} });
-      return axios({
-        url: `${API_BASE_URL}markets/info?address=${marketAddress}`,
-        method: "get",
-        headers: { "Content-Type": "application/json" }
-      });
+        return {
+            data: await (
+                await fetch(`${API_BASE_URL}markets/info?address=${marketAddress}`, 
+                { headers: {"Content-Type": "application/json"} })).json() };
     } catch (error) {
       console.log(error)
       return null;
