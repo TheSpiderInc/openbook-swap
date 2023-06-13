@@ -17,10 +17,11 @@ export function SwapContainer(props: SwapContainerProps) {
     const { title, markets, connection, wallet, onSwapLoading, onSwapError, onSwapSuccess, onSwap, colors, apiKey, manualTransaction } = props;
 
     const style = {
-        "--primary-color": colors.primary,
-        "--secondary-color": colors.secondary,
-        "--background-color": colors.background,
-        "--text-color": colors.text,
+        "--primary-color": colors?.primary || "grey",
+        "--secondary-color": colors?.secondary || "#3a3a3a",
+        "--background-color": colors?.background || "rgb(27, 23, 23)",
+        "--text-color": colors?.text || "#fff",
+        "--button-color": colors?.swapButton || "grey"
     } as React.CSSProperties;
 
     const [swap, setSwap] = useState<Swap>({
@@ -405,7 +406,7 @@ export interface SwapContainerProps {
     onSwapSuccess: (success: SwapSuccess) => void;
     onSwapError: (error: SwapError) => void;
     onSwapLoading: (loading: SwapLoading) => void;
-    colors: SwapContainerColors;
+    colors?: SwapContainerColors;
     markets: SwapMarket[];
     apiKey: string;
     wallet?: WalletContextState;
@@ -414,9 +415,10 @@ export interface SwapContainerProps {
 }
 
 export interface SwapContainerColors {
+    background: string;
+    swapButton: string;
     primary: string;
     secondary: string;
-    background: string;
     text: string;
 }
 
