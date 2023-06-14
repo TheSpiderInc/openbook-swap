@@ -14,7 +14,7 @@ import swapImage from '@thespidercode/openbook-swap/src/images/icons/icon-swap.s
 import '@thespidercode/openbook-swap/src/css/openbookswap.css';
 
 export function SwapContainer(props: SwapContainerProps) {
-    const { title, markets, connection, wallet, onSwapLoading, onSwapError, onSwapSuccess, onSwap, colors, apiKey, manualTransaction } = props;
+    const { title, markets, connection, wallet, onSwapLoading, onSwapError, onSwapSuccess, onSwap, colors, manualTransaction } = props;
 
     const style = {
         "--primary-color": colors?.primary || "grey",
@@ -84,7 +84,7 @@ export function SwapContainer(props: SwapContainerProps) {
                 return;
             }
 
-            const swapResult = await newSwap((wallet && wallet?.publicKey ? wallet.publicKey : manualTransaction as PublicKey), swap, marketOrders.lowestAsk, marketOrders.highestBid, connection, apiKey);
+            const swapResult = await newSwap((wallet && wallet?.publicKey ? wallet.publicKey : manualTransaction as PublicKey), swap, marketOrders.lowestAsk, marketOrders.highestBid, connection);
 
             if (swapResult.error || !swapResult.transaction) {
                 onSwapError({
@@ -288,12 +288,11 @@ export function SwapContainer(props: SwapContainerProps) {
                             <div className="flex items-center between">
                                 <h4>From:</h4>
                                 { (swap.sell ? userTokens?.amountBaseToken : userTokens?.amountQuoteToken) || 
-                                (swap.sell ? userTokens?.amountBaseToken : userTokens?.amountQuoteToken) == 0 ? <h5 className="">Balance: <button className={`link-simple disabled`} onClick={() =>  {
-                                }}>{swap.sell ? (
+                                (swap.sell ? userTokens?.amountBaseToken : userTokens?.amountQuoteToken) == 0 ? <div className="balance flex items-center"><span>Balance:</span> <span>{swap.sell ? (
                                         userTokens?.amountBaseToken && userTokens?.amountBaseToken > 10000 ? (userTokens?.amountBaseToken / 1000).toLocaleString() + 'K' : userTokens?.amountBaseToken.toLocaleString()
                                     ) : (
                                         userTokens?.amountQuoteToken && userTokens?.amountQuoteToken > 10000 ? (userTokens?.amountQuoteToken / 1000).toLocaleString() + 'K' : userTokens?.amountQuoteToken.toLocaleString()
-                                    )}</button></h5> : null }
+                                    )}</span></div> : null }
                             </div>
                             <TokenInput
                                 markets={markets}
@@ -328,12 +327,11 @@ export function SwapContainer(props: SwapContainerProps) {
                             <div className="flex items-center between">
                                 <h4>To:</h4>
                                 { (!swap.sell ? userTokens?.amountBaseToken : userTokens?.amountQuoteToken) || 
-                                (!swap.sell ? userTokens?.amountBaseToken : userTokens?.amountQuoteToken) == 0 ? <h5 className="">Balance: <button className={`link-simple disabled`} onClick={() =>  {
-                                }}>{!swap.sell ? (
+                                (!swap.sell ? userTokens?.amountBaseToken : userTokens?.amountQuoteToken) == 0 ? <div className="balance flex items-center"><span>Balance:</span><span>{!swap.sell ? (
                                     userTokens?.amountBaseToken && userTokens?.amountBaseToken > 10000 ? (Number(userTokens?.amountBaseToken / 1000)).toLocaleString() + 'K' : userTokens?.amountBaseToken.toLocaleString()
                                 ) : (
                                     userTokens?.amountQuoteToken && userTokens?.amountQuoteToken > 10000 ? (Number(userTokens?.amountQuoteToken / 1000)).toLocaleString() + 'K' : userTokens?.amountQuoteToken.toLocaleString()
-                                )}</button></h5> : null }
+                                )}</span></div> : null }
                             </div>
                             <TokenQuote 
                                 markets={markets}
@@ -395,6 +393,7 @@ export function SwapContainer(props: SwapContainerProps) {
                     }
                 </div>
             </div>
+            <a className="powered-by-openbookswap" href='#' target="_blank">Powered by OpenBookSwap</a>
         </div>
         
     )
@@ -408,18 +407,17 @@ export interface SwapContainerProps {
     onSwapLoading: (loading: SwapLoading) => void;
     colors?: SwapContainerColors;
     markets: SwapMarket[];
-    apiKey: string;
     wallet?: WalletContextState;
     manualTransaction?: PublicKey;
     onSwap?: (swap: ManualSwap) => void;
 }
 
 export interface SwapContainerColors {
-    background: string;
-    swapButton: string;
-    primary: string;
-    secondary: string;
-    text: string;
+    background?: string;
+    swapButton?: string;
+    primary?: string;
+    secondary?: string;
+    text?: string;
 }
 
 export interface SwapCallback {

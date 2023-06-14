@@ -25,7 +25,7 @@ export const getCloseOpenOrdersInstruction = (openOrders: PublicKey, market: Pub
     });
 }
 
-export const getSwapTransaction = async (owner: PublicKey, side: Side, limit: number, size: number, marketDetails: MarketDetails, connection: Connection, apiKey: string | null = null): Promise<SwapTransaction | string> => {
+export const getSwapTransaction = async (owner: PublicKey, side: Side, limit: number, size: number, marketDetails: MarketDetails, connection: Connection): Promise<SwapTransaction | string> => {
     try {
         const transaction = new Transaction();
         const programAddress = new PublicKey(DEX_ADDRESS);
@@ -33,12 +33,10 @@ export const getSwapTransaction = async (owner: PublicKey, side: Side, limit: nu
         let marketInfo: MarketOrders | null = null;
 
         // USING ONCHAIN DATA
-        if (apiKey == null) {
-            marketInfo = (await getMarketOrdersOnChain(market.address, connection))?.market ?? null;
-            if (!marketInfo?.lowestAsk || !marketInfo.highestBid) {
-                throw('Cannot get market information - please check your RPC and market address');
-            }
-        } 
+        marketInfo = (await getMarketOrdersOnChain(market.address, connection))?.market ?? null;
+        if (!marketInfo?.lowestAsk || !marketInfo.highestBid) {
+            throw('Cannot get market information - please check your RPC and market address');
+        }
         // USING API
         // TODO: FINISH THIS THING
         else {
@@ -198,7 +196,7 @@ const getSettleInstruction = (market: Market, marketDetails: MarketDetails, acco
   }
 }
 
-export const newSwap = async (owner: PublicKey, swap: Swap, lowestAsk: number, highestBid: number, connection: Connection, apiKey: string | null = null): Promise<SwapDetail> => {
+export const newSwap = async (owner: PublicKey, swap: Swap, lowestAsk: number, highestBid: number, connection: Connection): Promise<SwapDetail> => {
   try {
     const baseAmount = parseFloat(swap.inputAmounts.base) ?? 0;
     const quoteAmount = parseFloat(swap.inputAmounts.quote) ?? 0;
@@ -217,7 +215,7 @@ export const newSwap = async (owner: PublicKey, swap: Swap, lowestAsk: number, h
     const size = swap.sell ? baseAmount : swap.amounts.base;
     const side = swap.sell ? Side.Sell : Side.Buy;
     
-    const swapTransaction = await getSwapTransaction(owner, side, limit, size, swap.market, connection, apiKey);
+    const swapTransaction = await getSwapTransaction(owner, side, limit, size, swap.market, connection);
     if (typeof swapTransaction == 'string') {
       return {error: `Swap error, ${swapTransaction}`};
     } else {
