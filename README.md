@@ -16,8 +16,8 @@ Openbook aims to address some of the limitations faced by traditional centralize
 # Difference between DEX and AMM
 The main distinction between a DEX and an AMM lies in their mechanisms for executing trades and determining prices. A DEX with an order book model relies on order matching between buyers and sellers, while an AMM operates through liquidity pools and a mathematical formula to determine prices.
 
-# Why openbook-swap
-While most of the swap tools are using AMMs to process swaps, openbook-swap aim to only use Openbook DEX by basically using a IOC order (Instant Or Cancel). By promoting the use of the Openbook DEX, openbook-swap goal is to bring more users and more volume to create a strong competition to AMMs in order to offer more options for users and so better prices.
+# Why openbook-swap?
+While most swap tools use AMMs (Automated Market Makers) to process swaps, Openbook-Swap aims to exclusively utilize the Openbook DEX (Decentralized Exchange) by employing an IOC (Instant Or Cancel) order mechanism. By promoting the use of the Openbook DEX, Openbook-Swap's goal is to attract more users and increase trading volume, thereby creating strong competition for AMMs. This competition will provide users with more options and, consequently, better prices.
 
 # How to use?
 ## Installation
@@ -31,7 +31,7 @@ npm install @solana/wallet-adapter
 
 ## Usage
 ### First Step
-First step is to define which markets you want to include. To do so, you need to add a *market.constant* file in your project who is and array of *SwapMarket*.
+The first step is to define which markets you want to include. To do so, you need to add a `market.constant.ts` file in your project, which is an array of `SwapMarket` objects. 
 > SwapMarket
 ```typescript
 interface SwapMarket {
@@ -85,9 +85,9 @@ export const marketPairs: SwapMarket[] =[
 ]
 ```
 ### Second step 
-Second step is to call the package, there is 2 ways of doing it: 
-- Let it handle the transaction by passing an instance of the wallet adaptor (and so you need to have it installed, see above).
-- Manually manage the delivery of the transaction, the package then provides a transaction ready to send.
+The second step involves calling the package, and there are two ways to do it:
+- Let the package handle the transaction by passing an instance of the wallet adaptor. This requires installing the wallet adaptor as mentioned above. The package will then manage the transaction delivery internally.
+- Manually manage the delivery of the transaction. In this approach, the package provides a transaction that is ready to be sent. You have the responsibility of handling the transaction delivery process yourself.
 
 > Using wallet adaptor
 ```tsx
