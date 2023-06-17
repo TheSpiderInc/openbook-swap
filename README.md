@@ -52,13 +52,13 @@ export const marketPairs: SwapMarket[] =[
         address: new PublicKey('8PhnCfgqpgFM7ZJvttGdBVMXHuU4Q23ACxCvWkbs1M71'),
         base: {
             name: "BONK",
-            logo: "https://img.api.cryptorank.io/coins/bonk1672306100278.png",
+            logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/23095.png",
             mint: new PublicKey('DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263'),
             vault: new PublicKey('A9yRKSx8SyqNdCtCMUgr6wDXUs1JmVFkVno6FcscSD6m'),
         },
         quote: {
             name: "USDC",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Circle_USDC_Logo.svg/512px-Circle_USDC_Logo.svg.png",
+            logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png",
             mint: new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'),
             vault: new PublicKey('D9dojzvwJGs4q3Cx8ytvD8kWVVZszoVKvPZEZ5D8PV1Y'),
         },
@@ -69,13 +69,13 @@ export const marketPairs: SwapMarket[] =[
         address: new PublicKey('Hs97TCZeuYiJxooo3U73qEHXg3dKpRL4uYKYRryEK9CF'),
         base: {
             name: "BONK",
-            logo: "https://img.api.cryptorank.io/coins/bonk1672306100278.png",
+            logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/23095.png",
             mint: new PublicKey('DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263'),
             vault: new PublicKey('AVnL1McPPrn1dZyHGThwXzwYaHBp6sxB44vXoETPqH45'),
         },
         quote: {
             name: "SOL",
-            logo: "https://img.api.cryptorank.io/coins/solana1606979093056.png",
+            logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png",
             mint: new PublicKey('So11111111111111111111111111111111111111112'),
             vault: new PublicKey('8KftabityJoWgvUb6wwAPZww8mYmLq8WTMuQGGPoGiKM'),
         },
@@ -116,9 +116,10 @@ export function App() {
             <SwapContainer
                 title='Swap'
                 colors={{
-                    primary: "var(--color-orange)",
-                    secondary: "var(--color-purple-light)",
-                    background: "var(--color-purple)",
+                    primary: "grey",
+                    secondary: "#3a3a3a",
+                    background: "#1b1717",
+                    swapButton: "grey",
                     text: "#fff",
                 }}
                 markets={marketPairs} 
@@ -142,13 +143,14 @@ import { marketPairs } from '../constants/market.constant';
 
 export function App() {
     const connection = new web3.Connection(web3.clusterApiUrl('mainnet-beta'));
-    const wallet = useWallet();
+    const [provider, setProvider] = useState<any>(null);
 
-    const getProvider = async () => {
+    const getProvider = async (): Promise<any> => {
       if ("solana" in window) {
-        await window.solana.connect();
+        await (window.solana as any).connect();
         const provider = window.solana;
-        if (provider.isPhantom) {
+        if ((provider as any).isPhantom) {
+          setProvider(provider);
           return provider;
         }
       } else {
@@ -162,7 +164,10 @@ export function App() {
 
     const onSwap = async (loading: ManualSwap): Promise<void> => {
       try {
-        if (!loading.swapResult.transaction || !wallet.publicKey) {
+        const provider = await getProvider();
+        if (!provider) return;
+        
+        if (!loading.swapResult.transaction || !provider.publicKey) {
           console.log('Loading object is missing required properties');
           return;
         }
@@ -179,7 +184,7 @@ export function App() {
           lastValidBlockHeight: latestBlockHash.lastValidBlockHeight
         }, 'finalized');
 
-        loading.refreshUserBalances(wallet.publicKey);
+        loading.refreshUserBalances(provider.publicKey);
         loading.setLoadingSwap(false);
       } catch (error) {
         console.log(error);
@@ -191,20 +196,25 @@ export function App() {
 
     return (
         <div>
-            <SwapContainer
-                title='Swap'
-                colors={{
-                    primary: "var(--color-orange)",
-                    secondary: "var(--color-purple-light)",
-                    background: "var(--color-purple)",
-                    text: "#fff",
-                }}
-                markets={marketPairs} 
-                connection={connection}
-                onSwapError={onSwapError}
-                onSwap={onSwap}
-                manualTransaction={wallet.publicKey}
-            />
+            {
+                provider && provider.publicKey ?
+                <SwapContainer
+                    title='Swap'
+                    colors={{
+                        primary: "grey",
+                        secondary: "#3a3a3a",
+                        background: "#1b1717",
+                        swapButton: "grey",
+                        text: "#fff",
+                    }}
+                    markets={marketPairs} 
+                    connection={connection}
+                    onSwapError={onSwapError}
+                    onSwap={onSwap}
+                    manualTransaction={provider.publicKey}
+                /> : 
+                <button onClick={() => getProvider()}>CONNECT</button>
+            }
         </div>
         
     )
