@@ -1,8 +1,8 @@
-import { Market } from "@project-serum/serum";
 import { MarketDetails } from "./market";
 import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, Transaction } from "@solana/web3.js";
 import { getOrCreateTokenAccount } from "./token-account";
 import { NATIVE_MINT } from "@solana/spl-token";
+import { Market } from "./serum/market";
 
 export const getAccountDetail = async (
     marketDetails: MarketDetails, 

@@ -1,9 +1,9 @@
 import { Connection, PublicKey } from "@solana/web3.js";
 import { TokenDetails } from "./token";
-import { Market, Orderbook } from "@project-serum/serum";
 import { DEX_ADDRESS } from "./constants/dex.constant";
 import { API_BASE_URL } from "./constants/api.constant";
 import { Swap } from "./swap";
+import { Market, Orderbook } from "./serum/market";
 
 export const getMarketOrdersOnChain = async (marketAddress: PublicKey, connection: Connection) : Promise<{market: MarketOrders | undefined} | undefined> => {
     try {

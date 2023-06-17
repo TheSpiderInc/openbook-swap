@@ -1,7 +1,7 @@
 {
   "name": "@thespidercode/openbook-swap",
   "private": false,
-  "version": "0.0.27",
+  "version": "0.0.29",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -9,7 +9,6 @@
     "test": "jest --coverage"
   },
   "peerDependencies": {
-    "@project-serum/serum": "^0.13.65",
     "@solana/spl-token": "0.3.7",
     "@solana/web3.js": "^1.75.0",
     "bn.js": "5.2.1",
@@ -19,7 +18,6 @@
     "react-tooltip": "^5.11.1"
   },
   "devDependencies": {
-    "@project-serum/serum": "^0.13.65",
     "@solana/spl-token": "0.3.7",
     "@solana/wallet-adapter-react": "^0.15.32",
     "@solana/web3.js": "^1.75.0",
@@ -56,6 +54,7 @@
   },
   "homepage": "https://github.com/TheSpiderInc/openbook-swap#readme",
   "dependencies": {
-    "@types/axios": "^0.14.0"
+    "@types/axios": "^0.14.0",
+    "buffer-layout": "^1.2.2"
   }
 }

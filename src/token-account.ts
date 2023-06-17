@@ -1,6 +1,6 @@
-import { initializeAccount } from "@project-serum/serum/lib/token-instructions";
 import { ASSOCIATED_TOKEN_PROGRAM_ID, NATIVE_MINT, TOKEN_PROGRAM_ID, createAssociatedTokenAccountInstruction } from "@solana/spl-token";
 import { Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { initializeAccount } from "./serum/token-instructions";
 
 export const getOrCreateTokenAccount = async (
     owner: PublicKey, 

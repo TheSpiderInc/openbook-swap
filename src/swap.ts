@@ -1,11 +1,11 @@
-import { encodeInstruction } from "@project-serum/serum/lib/instructions";
-import { Market } from "@project-serum/serum/lib/market";
 import { Account, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, Transaction, TransactionInstruction } from "@solana/web3.js";
 import { DEX_ADDRESS } from "./constants/dex.constant";
 import { MarketDetails, MarketOrders, getMarketOrders, getMarketOrdersOnChain } from "./market";
 import { AccountDetails, getAccountDetail } from "./account";
 import { NATIVE_MINT, TOKEN_PROGRAM_ID, createCloseAccountInstruction } from "@solana/spl-token";
 import BN from 'bn.js';
+import { encodeInstruction } from "./serum/instructions";
+import { Market } from "./serum/market";
 
 export const getCloseOpenOrdersInstruction = (openOrders: PublicKey, market: PublicKey, owner: PublicKey): TransactionInstruction | null => {
     // TODO: SHOULD WE LET THE USER CHOOSE THE PROGRAM ADDRESS?
