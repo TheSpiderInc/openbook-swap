@@ -12,6 +12,8 @@ import { TokenInput } from "./token-input";
 import { TokenQuote } from "./token-quote";
 import swapImage from '@thespidercode/openbook-swap/src/images/icons/icon-swap.svg';
 import '@thespidercode/openbook-swap/src/css/openbookswap.css';
+import * as buffer from "buffer";
+window.Buffer = buffer.Buffer;
 
 export function SwapContainer(props: SwapContainerProps) {
     const { title, markets, connection, wallet, onSwapLoading, onSwapError, onSwapSuccess, onSwap, colors, manualTransaction } = props;
@@ -79,12 +81,17 @@ export function SwapContainer(props: SwapContainerProps) {
         setLoadingSwap(true);
 
         try {
-            if (((!wallet || !wallet.publicKey) && !manualTransaction) || !marketOrders) {
-                onSwapError({message: "Cannot get wallet and/or market information"} as SwapError);
+            if (!(wallet && wallet.publicKey) && !manualTransaction) {
+                onSwapError({message: "Cannot get wallet address"} as SwapError);
                 return;
             }
 
-            const swapResult = await newSwap((wallet && wallet?.publicKey ? wallet.publicKey : manualTransaction as PublicKey), swap, marketOrders.lowestAsk, marketOrders.highestBid, connection);
+            if (!marketOrders) {
+                onSwapError({message: "Cannot get market information"} as SwapError);
+                return;
+            }
+
+            const swapResult = await newSwap((wallet && wallet?.publicKey ? wallet.publicKey : new PublicKey((manualTransaction as any)?.toString())), swap, marketOrders.lowestAsk, marketOrders.highestBid, connection);
 
             if (swapResult.error || !swapResult.transaction) {
                 onSwapError({
@@ -249,6 +256,8 @@ export function SwapContainer(props: SwapContainerProps) {
     useEffect(() => {
         if (wallet?.publicKey) {
             refreshUserBalances(wallet.publicKey);
+        } else if (manualTransaction) {
+            refreshUserBalances(manualTransaction);
         } else {
             setUserTokens(undefined);
         }
@@ -365,7 +374,7 @@ export function SwapContainer(props: SwapContainerProps) {
 
                 <div className="mt-3 w-100">
                     {
-                        wallet?.connected && !manualTransaction ? 
+                        (wallet?.connected && wallet.publicKey) || (manualTransaction) ? 
                             <button disabled={loadingSwap || swap.slotConsumed > 1 ||
                                     (swap.sell && (userTokens?.amountBaseToken ?? 0) < (parseFloat(swap.inputAmounts.base) ?? 0)) || 
                                     (!swap.sell && (userTokens?.amountQuoteToken ?? 0) < (parseFloat(swap.inputAmounts.quote) ?? 0)) || 
