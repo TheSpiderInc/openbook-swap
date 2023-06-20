@@ -1,3 +1,5 @@
+![Openbook Swap](https://github.com/TheSpiderInc/openbook-swap/blob/master/ob-swap.png?raw=true)
+
 # What is Openbook?
 Openbook refers to a decentralized exchange (DEX) built on the Solana blockchain. It is designed to provide fast, secure, and low-cost trading of digital assets. Openbook leverages the Solana network's high throughput and low latency capabilities to enable efficient trading experiences.
 
