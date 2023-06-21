@@ -1,3 +1,4 @@
+import './App.css';
 import { ManualSwap, SwapContainer, SwapError } from '@thespidercode/openbook-swap';
 import { marketPairs } from './market.constant';
 import * as web3 from '@solana/web3.js';
@@ -75,10 +76,17 @@ function App() {
     }
 
     return (
-        <div>
+      <div className='App'>
+        <header>
           {
-            provider && provider.publicKey && <button onClick={() => releaseProvider()}>DISCONNECT {provider.publicKey.toString()}</button>
+            provider && provider.publicKey && 
+            <div>
+              <a href={`https://solscan.io/account/${provider.publicKey.toString()}`} target='_blank'>{provider.publicKey.toString().slice(0, 8) + ".." + provider.publicKey.toString().slice(-8)}</a>
+              <button className='connect-button' onClick={() => releaseProvider()}>DISCONNECT</button>
+            </div>
           }
+        </header>
+        <main>
           {
             provider && provider.publicKey ?
             <SwapContainer
@@ -90,10 +98,10 @@ function App() {
                 onSwapLoading={() => {}}
                 onSwapSuccess={() => {}}
                 manualTransaction={provider.publicKey}
-            /> : <button onClick={() => getProvider()}>CONNECT</button>
+            /> : <button className='connect-button large' onClick={() => getProvider()}>CONNECT</button>
           }
-        </div>
-        
+        </main>
+      </div>
     )
 }
 

@@ -1,0 +1,28 @@
+@import "@solana/wallet-adapter-react-ui/styles.css";
+
+* {
+    transition: all ease 0.3s;
+}
+  
+.App {
+    background-color: #7c7c7c;
+    min-height: 100vh;
+    font-family: monospace;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em 3em;
+}
+
+header > .wallet-adapter-button-trigger {
+    background-color: black;
+}
+
+main {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

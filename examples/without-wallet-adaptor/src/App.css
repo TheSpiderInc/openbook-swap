@@ -1,0 +1,60 @@
+* {
+    transition: all ease 0.3s;
+}
+  
+.App {
+    background-color: #7c7c7c;
+    min-height: 100vh;
+    font-family: monospace;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em 3em;
+}
+
+header > div {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header > div > a {
+    color: white;
+    text-decoration-color: transparent;
+}
+
+header > div > a:hover {
+    text-decoration-color: white;
+}
+
+main {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.connect-button {
+    cursor: pointer;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 10px;
+}
+
+button.connect-button.large {
+    font-size: 20px;
+    line-height: 11px;
+}
+
+button.connect-button:hover {
+    background-color: #303030;
+}
+  
