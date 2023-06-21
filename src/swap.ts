@@ -25,22 +25,25 @@ export const getCloseOpenOrdersInstruction = (openOrders: PublicKey, market: Pub
     });
 }
 
-export const getSwapTransaction = async (owner: PublicKey, side: Side, limit: number, size: number, marketDetails: MarketDetails, connection: Connection): Promise<SwapTransaction | string> => {
+export const getSwapTransaction = async (owner: PublicKey, side: Side, limit: number, size: number, marketDetails: MarketDetails, connection: Connection, onchain: boolean): Promise<SwapTransaction | string> => {
     try {
         const transaction = new Transaction();
         const programAddress = new PublicKey(DEX_ADDRESS);
-        const market = await Market.load(connection, marketDetails.address, {}, programAddress);
         let marketInfo: MarketOrders | null = null;
-
+        const market = await Market.load(connection, marketDetails.address, {}, programAddress);
+        
         // USING ONCHAIN DATA
-        marketInfo = (await getMarketOrdersOnChain(market.address, connection))?.market ?? null;
-        if (!marketInfo?.lowestAsk || !marketInfo.highestBid) {
-            throw('Cannot get market information - please check your RPC and market address');
+        if (onchain) {
+          marketInfo = (await getMarketOrdersOnChain(market.address, connection, market))?.market ?? null;
+          if (!marketInfo?.lowestAsk || !marketInfo.highestBid) {
+              throw('Cannot get market information - please check your RPC and market address');
+          }
+
         }
         // USING API
         // TODO: FINISH THIS THING
         else {
-          let getMarketOrdersResponse = await getMarketOrders(market.address);
+          let getMarketOrdersResponse = await getMarketOrders(marketDetails.address);
           if (!getMarketOrdersResponse?.market)
             throw('Cannot get market information from API');
           marketInfo = getMarketOrdersResponse.market;
@@ -105,7 +108,7 @@ export const getSwapTransaction = async (owner: PublicKey, side: Side, limit: nu
     }
 }
 
-const getOrderTransaction = async (market: Market, side: Side, price: number, size: number, accountDetails: AccountDetails, owner: PublicKey, swapMargin: number, connection: Connection): Promise<{transaction: Transaction} | null> => {
+const getOrderTransaction = async (market: Market, side: Side, price: number, size: number, accountDetails: AccountDetails, owner: PublicKey, swapMargin: number, connection: Connection): Promise<{transaction: Transaction, signers: Account[]} | null> => {
     try {
       if (!accountDetails.quoteTokenAccount || !accountDetails.baseTokenAccount) {
           return null;
@@ -214,8 +217,9 @@ export const newSwap = async (owner: PublicKey, swap: Swap, lowestAsk: number, h
     const limit = swap.sell ? highestBid * (1 - swap.market.swapMargin) : lowestAsk * (1 + swap.market.swapMargin);
     const size = swap.sell ? baseAmount : swap.amounts.base;
     const side = swap.sell ? Side.Sell : Side.Buy;
-    
-    const swapTransaction = await getSwapTransaction(owner, side, limit, size, swap.market, connection);
+    const onchain = false;
+
+    const swapTransaction = await getSwapTransaction(owner, side, limit, size, swap.market, connection, onchain);
     if (typeof swapTransaction == 'string') {
       return {error: `Swap error, ${swapTransaction}`};
     } else {

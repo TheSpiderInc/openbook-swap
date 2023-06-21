@@ -100,7 +100,7 @@ div.swap-container.openbookswap {
 }
 
 a.powered-by-openbookswap {
-    color: var(--text-color);
+    color: black;
     position: absolute;
     font-size: 12px !important;
     bottom: -20px;

@@ -5,19 +5,20 @@ import { API_BASE_URL } from "./constants/api.constant";
 import { Swap } from "./swap";
 import { Market, Orderbook } from "./serum/market";
 
-export const getMarketOrdersOnChain = async (marketAddress: PublicKey, connection: Connection) : Promise<{market: MarketOrders | undefined} | undefined> => {
+export const getMarketOrdersOnChain = async (marketAddress: PublicKey, connection: Connection, market?: Market) : Promise<{market: MarketOrders | undefined} | undefined> => {
     try {
-        return {market: await getMarketInfo(marketAddress, connection)};
+        if (!market) {
+            const programAddress = new PublicKey(DEX_ADDRESS);
+            market = await Market.load(connection, marketAddress, {}, programAddress);
+        }
+        return {market: await getMarketInfo(connection, market)};
     } catch (error) {
         throw(error);
     }
 }
   
-export const getMarketInfo = async (marketAddress: PublicKey, connection: Connection) : Promise<MarketOrders | undefined> => {
+export const getMarketInfo = async (connection: Connection, market: Market) : Promise<MarketOrders | undefined> => {
     try {
-        const programAddress = new PublicKey(DEX_ADDRESS);
-        const market = await Market.load(connection, marketAddress, {}, programAddress);
-
         const [bids, asks] = await Promise.all([
             market.loadBids(connection),
             market.loadAsks(connection)

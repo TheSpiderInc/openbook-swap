@@ -217,7 +217,7 @@ export function SwapContainer(props: SwapContainerProps) {
             setPrices(obj);
             isOnChainData = marketQuery.isOnChainData;
 
-            const priceAlertMessage = 'OpenBONK is experiencing a price delay that can impact swaps';
+            const priceAlertMessage = 'Openbook is experiencing a price delay that can impact swaps';
             if (Date.parse(marketOrdersResponse?.market['updatedAt']) + 3660000 < Date.now()) {
                 if (!alertMessages.includes(priceAlertMessage)) {
                     const newAlerts = [...alertMessages, priceAlertMessage];
@@ -254,11 +254,17 @@ export function SwapContainer(props: SwapContainerProps) {
     }, [(swap.sell ? swap.inputAmounts.base : swap.inputAmounts.quote), swap.sell, marketOrders]);
 
     useEffect(() => {
-        if (wallet?.publicKey) {
-            refreshUserBalances(wallet.publicKey);
-        } else if (manualTransaction) {
+        if (manualTransaction && swap.market.address) {
             refreshUserBalances(manualTransaction);
-        } else {
+        } else if (!wallet?.publicKey && swap.market.address) {
+            setUserTokens(undefined);
+        }
+    }, [manualTransaction, swap.market.address]);
+
+    useEffect(() => {
+        if (wallet?.publicKey && swap.market.address) {
+            refreshUserBalances(wallet.publicKey);
+        } else if (!manualTransaction && swap.market.address) {
             setUserTokens(undefined);
         }
     }, [wallet?.publicKey, swap.market.address]);
@@ -272,11 +278,8 @@ export function SwapContainer(props: SwapContainerProps) {
         }
     }, [counter]);
 
-    
-
     return (
         <div className="openbookswap swap-container" style={style}>
-            {/* <IntroMessage /> */}
             <div className={`swap-container-box flex column between items-center`}>
                 {
                     alertMessages.length > 0 ?
@@ -402,7 +405,7 @@ export function SwapContainer(props: SwapContainerProps) {
                     }
                 </div>
             </div>
-            <a className="powered-by-openbookswap" href='#' target="_blank">Powered by OpenBookSwap</a>
+            <a className="powered-by-openbookswap" href='https://github.com/TheSpiderInc/openbook-swap' target="_blank">Powered by OpenBookSwap</a>
         </div>
         
     )
