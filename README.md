@@ -1,27 +1,27 @@
 ![Openbook Swap](https://github.com/TheSpiderInc/openbook-swap/blob/master/ob-swap.png?raw=true)
 
-# What is Openbook?
-Openbook refers to a decentralized exchange (DEX) built on the Solana blockchain. It is designed to provide fast, secure, and low-cost trading of digital assets. Openbook leverages the Solana network's high throughput and low latency capabilities to enable efficient trading experiences.
+# OpenBookSwap Overview
+OpenBookSwap aims to make token swaps on Solana easy with the Serum/OpenBook DEX smart contract v1 (v2 coming soon). This repository is a plug and play react component that can be implemented into your web application within minutes. Example: [OpenBonk.io](http://openbonk.io)
 
-Key features of Openbook include:
+# Serum/OpenBook DEX
+The [OpenBook DEX](https://github.com/openbook-dex) is a Solana smart contract, forked from Serum, that provides a complete limit order book on-chain.
 
-**Performance**: Built on Solana's high-performance blockchain, allowing for fast order execution and settlement times. The Solana network's scalability enables Serum to handle a high volume of transactions with minimal latency.
+# Features
+- Customizable Colors
+- Only 1 Transaction:
+    - Create an Open Orders Account
+    - Create the Associated Token Accounts
+    - Initialize Accounts
+    - Send an IOC Order (Immediate or Cancel)
+    - Settle
+- US Dollar Translations
+- RPC Built In
+- Low Liquidity Warnings
 
-**Decentralization**: Decentralized exchange, meaning it operates without a central authority. It utilizes smart contracts on the Solana blockchain to execute trades, ensuring transparency and eliminating the need for intermediaries.
+# Support
+This project has received support from the Solana Foundation and Bonk Inu. We are committed to providing support atleast until July 2024. Feel free to contact @swolsol on telegram for support.
 
-**Order Book**: Features a traditional order book model, where buyers and sellers can place limit orders at specific prices. This allows for efficient price discovery and liquidity provision.
-
-**Cross-Chain Compatibility**: Designed to be cross-chain compatible, enabling users to trade assets from different blockchains.
-
-Openbook aims to address some of the limitations faced by traditional centralized exchanges, such as high fees, slow transaction times, and lack of transparency. By leveraging the Solana blockchain's capabilities, Openbook aims to provide a decentralized trading platform that combines speed, security, and usability.
-
-# Difference between DEX and AMM
-The main distinction between a DEX and an AMM lies in their mechanisms for executing trades and determining prices. A DEX with an order book model relies on order matching between buyers and sellers, while an AMM operates through liquidity pools and a mathematical formula to determine prices.
-
-# Why openbook-swap?
-While most swap tools use AMMs (Automated Market Makers) to process swaps, Openbook-Swap aims to exclusively utilize the Openbook DEX (Decentralized Exchange) by employing an IOC (Instant Or Cancel) order mechanism. By promoting the use of the Openbook DEX, Openbook-Swap's goal is to attract more users and increase trading volume, thereby creating strong competition for AMMs. This competition will provide users with more options and, consequently, better prices.
-
-# How to use?
+# How to Use?
 ## Installation
 ```
 npm i @thespidercode/openbook-swap
@@ -32,8 +32,8 @@ npm install @solana/wallet-adapter
 ```
 
 ## Usage
-### First Step
-The first step is to define which markets you want to include. To do so, you need to add a `market.constant.ts` file in your project, which is an array of `SwapMarket` objects. 
+### Step 1/2 Define your Markets
+Decide which markets you want to include. Add a `market.constant.ts` file in your project, which is an array of `SwapMarket` objects. 
 > SwapMarket
 ```typescript
 interface SwapMarket {
@@ -86,8 +86,8 @@ export const marketPairs: SwapMarket[] =[
     },
 ]
 ```
-### Second step 
-The second step involves calling the package, and there are two ways to do it:
+### Step 2/2 Call the Package 
+There are two options to call the package:
 - Let the package handle the transaction by passing an instance of the wallet adaptor. This requires installing the wallet adaptor as mentioned above. The package will then manage the transaction delivery internally.
 - Manually manage the delivery of the transaction. In this approach, the package provides a transaction that is ready to be sent. You have the responsibility of handling the transaction delivery process yourself.
 
