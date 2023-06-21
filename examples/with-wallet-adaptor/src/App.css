@@ -16,7 +16,7 @@ header {
     padding: 1em 3em;
 }
 
-header > .wallet-adapter-button-trigger {
+header .wallet-adapter-button-trigger {
     background-color: black;
 }
 
@@ -25,4 +25,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+main .wallet-adapter-button-trigger {
+    background-color: black;
 }

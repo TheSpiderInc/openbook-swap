@@ -2,7 +2,7 @@ import './App.css';
 import { SwapContainer, SwapError, SwapLoading, SwapSuccess } from '@thespidercode/openbook-swap';
 import { marketPairs } from './market.constant';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { WalletModalButton } from '@solana/wallet-adapter-react-ui';
+import { WalletModalButton, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 function App() {
   const connection = useConnection().connection;
@@ -20,15 +20,11 @@ function App() {
       console.log(success);
   }
 
-  const disconnect = async () => {
-    wallet.disconnect();
-  }
-
   return (
       <div className='App'>
         <header>
           {
-            wallet && wallet.connected && <WalletModalButton></WalletModalButton>
+            wallet && wallet.connected && <WalletMultiButton />
           }
         </header>
         <main>
