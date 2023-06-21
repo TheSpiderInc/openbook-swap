@@ -3,3 +3,5 @@ lib/
 node_modules/
 
 coverage/
+
+examples/withtout-wallet-adaptor/package-lock.json
