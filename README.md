@@ -1,4 +1,6 @@
-![Openbook Swap](https://github.com/TheSpiderInc/openbook-swap/blob/master/ob-swap.png?raw=true)
+<p align="center">
+    <img src="https://github.com/TheSpiderInc/openbook-swap/blob/master/ob-swap.png?raw=true" />
+</p>
 
 # OpenBookSwap Overview
 OpenBookSwap aims to make token swaps on Solana easy with the Serum/OpenBook DEX smart contract v1 (v2 coming soon). This repository is a plug and play react component that can be implemented into your web application within minutes. Example: [OpenBonk.io](http://openbonk.io)
@@ -28,7 +30,7 @@ npm i @thespidercode/openbook-swap
 npm i @solana/web3.js
 
 *Optional*
-npm install @solana/wallet-adapter
+npm install @solana/wallet-adapter-react
 ```
 
 ## Usage
@@ -93,13 +95,13 @@ There are two options to call the package:
 
 > Using wallet adaptor
 ```tsx
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { WalletContextState } from "@solana/wallet-adapter-react";
 import { SwapContainer, SwapError, SwapLoading, SwapSuccess } from "@thespidercode/openbook-swap";
 import { marketPairs } from '../constants/market.constant';
+import { Connection } from '@solana/web3.js';
 
-export function App() {
-    const connection = useConnection().connection;
-    const wallet = useWallet();
+export function Swap(props: { connection: Connection, wallet: WalletContextState }) {
+  const { connection, wallet } = props;
     
     const onSwapError = (error: SwapError): void => {
         console.log(error);
@@ -137,23 +139,28 @@ export function App() {
 }
 ```
 
-> Not using wallet adaptor
+> Not using wallet adaptor **(don't forget to replace `RPC URL` with your RPC)**
 ```tsx
 import * as web3 from '@solana/web3.js';
 import { ManualSwap, SwapContainer, SwapError } from "@thespidercode/openbook-swap";
 import { marketPairs } from '../constants/market.constant';
+import { useState } from 'react';
 
 export function App() {
-    const connection = new web3.Connection(web3.clusterApiUrl('mainnet-beta'));
+    const connection = new web3.Connection('<RPC URL>');
     const [provider, setProvider] = useState<any>(null);
 
     const getProvider = async (): Promise<any> => {
       if ("solana" in window) {
-        await (window.solana as any).connect();
-        const provider = window.solana;
-        if ((provider as any).isPhantom) {
-          setProvider(provider);
-          return provider;
+        try {
+          await ((window  as any).solana).connect();
+          const provider = (window  as any).solana;
+          if ((provider as any).isPhantom) {
+            setProvider(provider);
+            return provider;
+          }
+        } catch (error) {
+          console.log(error);
         }
       } else {
         window.open("https://www.phantom.app/", "_blank");
@@ -176,9 +183,16 @@ export function App() {
         
         loading.setLoadingSwap(true);
 
+        const latestBlockHash = await connection.getLatestBlockhash();
+        loading.swapResult.transaction.transaction.recentBlockhash = latestBlockHash.blockhash;
+        loading.swapResult.transaction.transaction.feePayer = new web3.PublicKey(provider.publicKey);
+
+        for (let i = 0; i < loading.swapResult.transaction.signers.length; i++) {
+          loading.swapResult.transaction.transaction.partialSign(loading.swapResult.transaction.signers[i]);
+        }
+
         const signed = await provider.signTransaction(loading.swapResult.transaction.transaction);
         const orderSignature = await connection.sendRawTransaction(signed.serialize());
-        const latestBlockHash = await connection.getLatestBlockhash();
 
         await connection.confirmTransaction({
           signature: orderSignature, 
@@ -222,3 +236,10 @@ export function App() {
     )
 }
 ```
+## Examples
+
+You can find ready to use examples in the `examples` folder
+
+<p align="center">
+    <img src="https://github.com/TheSpiderInc/openbook-swap/blob/master/example-swap.png?raw=true" />
+</p>
