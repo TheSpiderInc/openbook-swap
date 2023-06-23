@@ -1,12 +1,12 @@
 import './App.css';
-import { SwapContainer, SwapError, SwapLoading, SwapSuccess } from '@thespidercode/openbook-swap';
+import { SwapContainer, SwapError, SwapLoading, SwapSuccess } from "@thespidercode/openbook-swap";
 import { marketPairs } from './market.constant';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { WalletContextState } from '@solana/wallet-adapter-react';
 import { WalletModalButton, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { Connection } from '@solana/web3.js';
 
-function App() {
-  const connection = useConnection().connection;
-  const wallet = useWallet();
+function App(props: { connection: Connection, wallet: WalletContextState }) {
+  const { connection, wallet } = props;
   
   const onSwapError = (error: SwapError): void => {
       console.log(error);

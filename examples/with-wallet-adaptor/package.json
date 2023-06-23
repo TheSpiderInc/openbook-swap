@@ -6,7 +6,7 @@
     "@solana/wallet-adapter-react": "^0.15.32",
     "@solana/wallet-adapter-react-ui": "^0.9.31",
     "@solana/wallet-adapter-wallets": "^0.19.16",
-    "@thespidercode/openbook-swap": "0.0.50",
+    "@thespidercode/openbook-swap": "^0.0.50",
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.6",
