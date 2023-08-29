@@ -900,5 +900,6 @@ a.powered-by-openbookswap:hover {
 
     div.swap-container.openbookswap {
         min-width: -webkit-fill-available;
+        max-width: -webkit-fill-available;
     }
 }
