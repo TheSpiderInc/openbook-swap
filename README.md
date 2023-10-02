@@ -53,7 +53,7 @@ import { PublicKey } from "@solana/web3.js";
 
 export const marketPairs: SwapMarket[] =[
     {
-        address: new PublicKey('8PhnCfgqpgFM7ZJvttGdBVMXHuU4Q23ACxCvWkbs1M71'),
+        address: new PublicKey('7tV5jsyNUg9j1AARv56b7AirdpLBecibRXLEJtycEgpP'),
         base: {
             name: "BONK",
             logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/23095.png",
