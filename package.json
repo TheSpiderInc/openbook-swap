@@ -54,6 +54,7 @@
   },
   "homepage": "https://github.com/TheSpiderInc/openbook-swap#readme",
   "dependencies": {
+    "@moongate/moongate-adapter": "^0.0.94",
     "@types/axios": "^0.14.0",
     "buffer-layout": "^1.2.2"
   }
