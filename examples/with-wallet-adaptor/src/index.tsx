@@ -1,17 +1,22 @@
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
+import { MoongateWalletAdapter } from "@moongate/moongate-adapter";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
-const endpoint = '<RPC URL>';
+const endpoint = "<RPC URL>";
 const wallets = [
-  new PhantomWalletAdapter()
+  new PhantomWalletAdapter(),
+  new MoongateWalletAdapter({ position: "bottom-right" }),
 ];
 
 root.render(
